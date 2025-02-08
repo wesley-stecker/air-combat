@@ -6,6 +6,13 @@
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_0ag05")
 
+[node name="Label2" type="Label" parent="."]
+offset_left = 217.0
+offset_top = 63.0
+offset_right = 263.0
+offset_bottom = 86.0
+text = "Score"
+
 [node name="ScoreLabel" type="Label" parent="."]
 anchors_preset = 5
 anchor_left = 0.5

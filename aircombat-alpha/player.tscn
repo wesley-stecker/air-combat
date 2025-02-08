@@ -1,20 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://cphn35p0ep5rf"]
+[gd_scene load_steps=5 format=3 uid="uid://cphn35p0ep5rf"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_gldho"]
 [ext_resource type="PackedScene" uid="uid://dq6dchuqth0kr" path="res://bullet.tscn" id="2_f6rha"]
-[ext_resource type="Texture2D" uid="uid://cxx61k1hjeeup" path="res://art/playerGrey_walk1.png" id="2_jinql"]
-[ext_resource type="Texture2D" uid="uid://bwpy3ccjn57ta" path="res://art/playerGrey_up1.png" id="2_ravrx"]
-[ext_resource type="Texture2D" uid="uid://dgfye8pcrcbxu" path="res://art/playerGrey_walk2.png" id="3_635kn"]
-[ext_resource type="Texture2D" uid="uid://eca8xm73ipa7" path="res://art/playerGrey_up2.png" id="3_dyqy0"]
+[ext_resource type="Texture2D" uid="uid://ux1v32jbstcv" path="res://art/Redplane4xt.png" id="3_gqxpi"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_65jvv"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_ravrx")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_dyqy0")
+"texture": ExtResource("3_gqxpi")
 }],
 "loop": true,
 "name": &"up",
@@ -22,19 +16,12 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_jinql")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_635kn")
+"texture": ExtResource("3_gqxpi")
 }],
 "loop": true,
 "name": &"walk",
 "speed": 5.0
 }]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ilrq0"]
-radius = 28.0
-height = 68.0
 
 [node name="Player" type="Area2D"]
 position = Vector2(10, 4)
@@ -45,13 +32,13 @@ metadata/_edit_group_ = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_65jvv")
-animation = &"walk"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_ilrq0")
+animation = &"up"
 
 [node name="Muzzle" type="Marker2D" parent="."]
 position = Vector2(0, -35)
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(8, 5, 27, 13, 49, 31, 49, 33, 12, 35, -12, 35, -49, 33, -49, 31, -27, 13, -8, 5, -8, -13, -17, -14, -17, -17, -2, -32, 2, -32, 17, -17, 17, -14, 8, -13)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="hit" from="." to="." method="game_over"]
