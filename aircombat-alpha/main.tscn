@@ -20,7 +20,7 @@ mob_scene = ExtResource("2_ndrgu")
 [node name="Player" parent="." instance=ExtResource("3_smbpx")]
 
 [node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(240, 450)
+position = Vector2(240, 600)
 
 [node name="MobTimer" type="Timer" parent="."]
 wait_time = 0.5
