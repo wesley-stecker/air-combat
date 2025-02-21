@@ -41,4 +41,3 @@ position = Vector2(0, -35)
 polygon = PackedVector2Array(8, 5, 27, 13, 49, 31, 49, 33, 12, 35, -12, 35, -49, 33, -49, 31, -27, 13, -8, 5, -8, -13, -17, -14, -17, -17, -2, -32, 2, -32, 17, -17, 17, -14, 8, -13)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="hit" from="." to="." method="game_over"]

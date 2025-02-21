@@ -1,5 +1,6 @@
 extends RigidBody2D
-
+@export var PowerUp : PackedScene
+const powerup_chance = .1
 var time_elapsed = 0
 var movement_type = 0 
 var original_x = 0
@@ -39,6 +40,14 @@ func _integrate_forces(state):
 func hit():
 	$CollisionShape2D.set_deferred("disabled", true)
 	hide()
+	
+	# Chance to spawn power-up
+	if PowerUp and randf() < powerup_chance:
+		var powerup = PowerUp.instantiate()
+		powerup.position = position
+		powerup.powerup_collected.connect(get_parent()._on_powerup_collected)
+		get_parent().call_deferred("add_child", powerup)
+	
 	await get_tree().create_timer(0.2).timeout
 	queue_free()
 

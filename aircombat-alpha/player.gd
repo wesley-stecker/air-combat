@@ -4,8 +4,7 @@ signal hit
 @export var speed = 400 
 var screen_size
 var can_shoot = true 
-var shoot_delay = .25
-var is_holding = false
+var shoot_cooldown = 0.25
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,10 +17,11 @@ func shoot():
 		owner.add_child(b)
 		b.transform = $Muzzle.global_transform
 		b.mob_hit.connect(owner._on_bullet_mob_hit)
-		if is_holding:
-			can_shoot = false  # Prevent shooting until delay is over
-			await get_tree().create_timer(shoot_delay).timeout
-			can_shoot = true  # Allow shooting again
+		
+		# Disable shooting and start cooldown
+		can_shoot = false
+		await get_tree().create_timer(shoot_cooldown).timeout
+		can_shoot = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -36,16 +36,9 @@ func _process(delta):
 		if Input.is_action_pressed("move_up"):
 			velocity.y -= 1
 		
-		if Input.is_action_just_pressed("shoot"):
-			is_holding = false
+		# Simplified shooting logic - works the same for pressed or just_pressed
+		if Input.is_action_pressed("shoot") and can_shoot:
 			shoot()
-		elif Input.is_action_pressed("shoot"):
-			is_holding = true
-			if can_shoot:
-				shoot()
-		else:
-			is_holding = false
-			can_shoot = true
 			
 		if velocity.length() > 0:
 			velocity = velocity.normalized() * speed

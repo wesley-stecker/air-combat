@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://8nyn2h4kr1as"]
+[gd_scene load_steps=11 format=3 uid="uid://8nyn2h4kr1as"]
 
 [ext_resource type="Script" path="res://mob.gd" id="1_ayu0v"]
 [ext_resource type="Texture2D" uid="uid://c83iledhqwmb2" path="res://art/enemyFlyingAlt_1.png" id="1_xh3g7"]
 [ext_resource type="Texture2D" uid="uid://qufpbfnww3t8" path="res://art/enemyFlyingAlt_2.png" id="2_8dgvb"]
+[ext_resource type="PackedScene" uid="uid://boes6apjjemp5" path="res://PowerUp.tscn" id="2_amixf"]
 [ext_resource type="Texture2D" uid="uid://fab85x4lxseq" path="res://art/enemySwimming_1.png" id="3_6svmq"]
 [ext_resource type="Texture2D" uid="uid://djy0efbguj4gp" path="res://art/enemySwimming_2.png" id="4_2psy6"]
 [ext_resource type="Texture2D" uid="uid://dmndtrkhex3e8" path="res://art/enemyWalking_1.png" id="5_ithma"]
@@ -52,6 +53,7 @@ height = 76.0
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_ayu0v")
+PowerUp = ExtResource("2_amixf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-2.9375, -0.5)
