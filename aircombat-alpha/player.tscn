@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cphn35p0ep5rf"]
+[gd_scene load_steps=6 format=3 uid="uid://cphn35p0ep5rf"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_gldho"]
 [ext_resource type="PackedScene" uid="uid://dq6dchuqth0kr" path="res://bullet.tscn" id="2_f6rha"]
 [ext_resource type="Texture2D" uid="uid://ux1v32jbstcv" path="res://art/Redplane4xt.png" id="3_gqxpi"]
+[ext_resource type="PackedScene" uid="uid://kdn3ghqorna1" path="res://explosion.tscn" id="3_o0ya2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_65jvv"]
 animations = [{
@@ -27,6 +28,7 @@ animations = [{
 position = Vector2(10, 4)
 script = ExtResource("1_gldho")
 Bullet = ExtResource("2_f6rha")
+ExplosionScene = ExtResource("3_o0ya2")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

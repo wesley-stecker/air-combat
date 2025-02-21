@@ -1,6 +1,7 @@
 extends Area2D
 signal hit
 @export var Bullet : PackedScene
+@export var ExplosionScene : PackedScene
 @export var speed = 400 
 var screen_size
 var can_shoot = true 
@@ -56,10 +57,15 @@ func _process(delta):
 
 
 func _on_body_entered(body):
-	hide() 
-	hit.emit()
-	
-	$CollisionShape2D.set_deferred("disabled", true)
+	if body.is_in_group("mob"):
+		# Create explosion
+		var explosion = ExplosionScene.instantiate()
+		explosion.position = position
+		get_parent().add_child(explosion)
+		
+		hide() 
+		hit.emit()
+		$CollisionShape2D.set_deferred("disabled", true)
 	
 func start(pos):
 	position = pos

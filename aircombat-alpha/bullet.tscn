@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dq6dchuqth0kr"]
+[gd_scene load_steps=5 format=3 uid="uid://dq6dchuqth0kr"]
 
 [ext_resource type="Script" path="res://bullet.gd" id="1_7phb7"]
+[ext_resource type="PackedScene" uid="uid://kdn3ghqorna1" path="res://explosion.tscn" id="2_ulttt"]
 [ext_resource type="Texture2D" uid="uid://cllfwmudkc48r" path="res://art/laserRed01.png" id="2_xw7s3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5vmnj"]
@@ -8,6 +9,7 @@ height = 48.0
 
 [node name="Bullet" type="Area2D"]
 script = ExtResource("1_7phb7")
+ExplosionScene = ExtResource("2_ulttt")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_xw7s3")

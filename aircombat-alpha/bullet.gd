@@ -1,4 +1,5 @@
 extends Area2D
+@export var ExplosionScene : PackedScene
 
 var speed = 750
 signal mob_hit
@@ -19,5 +20,7 @@ func _on_body_entered(body: Node2D) -> void:
 	print("Collision detected with: ", body.name) 
 	if body.is_in_group("mob"):
 		mob_hit.emit()
+		
+		
 		body.hit()
 	queue_free()

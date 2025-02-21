@@ -1,16 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://blvp2nx0g7qpq"]
+[gd_scene load_steps=4 format=3 uid="uid://blvp2nx0g7qpq"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_0ag05"]
 [ext_resource type="FontFile" uid="uid://b83kbov7vx1hw" path="res://fonts/Xolonium-Regular.ttf" id="1_t228d"]
+[ext_resource type="Texture2D" uid="uid://4orqf77c8oi6" path="res://art/bg5.jpg" id="2_qndbd"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_0ag05")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(48, 264)
+texture = ExtResource("2_qndbd")
+
 [node name="Label2" type="Label" parent="."]
-offset_left = 217.0
-offset_top = 63.0
-offset_right = 263.0
-offset_bottom = 86.0
+offset_left = 296.0
+offset_top = 64.0
+offset_right = 342.0
+offset_bottom = 87.0
 text = "Score"
 
 [node name="ScoreLabel" type="Label" parent="."]
@@ -77,9 +85,9 @@ theme_override_font_sizes/font_size = 64
 text = "0"
 
 [node name="Label" type="Label" parent="."]
-offset_left = 392.0
+offset_left = 560.0
 offset_top = 64.0
-offset_right = 475.0
+offset_right = 643.0
 offset_bottom = 87.0
 text = "High Score"
 

@@ -1,22 +1,50 @@
-[gd_scene load_steps=11 format=3 uid="uid://8nyn2h4kr1as"]
+[gd_scene load_steps=21 format=3 uid="uid://8nyn2h4kr1as"]
 
 [ext_resource type="Script" path="res://mob.gd" id="1_ayu0v"]
-[ext_resource type="Texture2D" uid="uid://c83iledhqwmb2" path="res://art/enemyFlyingAlt_1.png" id="1_xh3g7"]
-[ext_resource type="Texture2D" uid="uid://qufpbfnww3t8" path="res://art/enemyFlyingAlt_2.png" id="2_8dgvb"]
-[ext_resource type="PackedScene" uid="uid://boes6apjjemp5" path="res://PowerUp.tscn" id="2_amixf"]
-[ext_resource type="Texture2D" uid="uid://fab85x4lxseq" path="res://art/enemySwimming_1.png" id="3_6svmq"]
-[ext_resource type="Texture2D" uid="uid://djy0efbguj4gp" path="res://art/enemySwimming_2.png" id="4_2psy6"]
-[ext_resource type="Texture2D" uid="uid://dmndtrkhex3e8" path="res://art/enemyWalking_1.png" id="5_ithma"]
-[ext_resource type="Texture2D" uid="uid://cci7ppgqpaioy" path="res://art/enemyWalking_2.png" id="6_5qhx2"]
+[ext_resource type="PackedScene" uid="uid://ble2cyb0txfuj" path="res://PowerUp.tscn" id="2_amixf"]
+[ext_resource type="PackedScene" uid="uid://kdn3ghqorna1" path="res://explosion.tscn" id="3_brgmy"]
+[ext_resource type="Texture2D" uid="uid://c8tdyo5v0kc7l" path="res://art/unused/Spaceship_art_pack_larger/Red/Enemy_animation/1.png" id="4_tipsi"]
+[ext_resource type="Texture2D" uid="uid://u1m8dph67l6l" path="res://art/unused/Spaceship_art_pack_larger/Red/Enemy_animation/2.png" id="5_vbok0"]
+[ext_resource type="Texture2D" uid="uid://o2l2lu6jpnql" path="res://art/unused/Spaceship_art_pack_larger/Red/Enemy_animation/3.png" id="6_82xg5"]
+[ext_resource type="Texture2D" uid="uid://cv1joda8n8ato" path="res://art/unused/Spaceship_art_pack_larger/Red/Enemy_animation/4.png" id="7_od3hm"]
+[ext_resource type="Texture2D" uid="uid://b6uakwl2s6dpl" path="res://art/unused/Spaceship_art_pack_larger/Red/Enemy_animation/5.png" id="8_l8l5q"]
+[ext_resource type="Texture2D" uid="uid://cer444y64ib1p" path="res://art/unused/Spaceship_art_pack_larger/Red/Enemy_animation/6.png" id="9_72geh"]
+[ext_resource type="Texture2D" uid="uid://6nblk4dmg1xj" path="res://art/unused/Spaceship_art_pack_larger/Red/Enemy_animation/7.png" id="10_585au"]
+[ext_resource type="Texture2D" uid="uid://dcmkir4adj5ho" path="res://art/unused/Spaceship_art_pack_larger/Red/Enemy_animation/8.png" id="11_38t22"]
+[ext_resource type="Texture2D" uid="uid://dpl22ddtk7mk" path="res://art/unused/Spaceship_art_pack_larger/Red/small_ship_animation/1.png" id="12_kj2ab"]
+[ext_resource type="Texture2D" uid="uid://cey551rqdg2fq" path="res://art/unused/Spaceship_art_pack_larger/Red/small_ship_animation/2.png" id="13_0blv7"]
+[ext_resource type="Texture2D" uid="uid://cmta28k2xlotr" path="res://art/unused/Spaceship_art_pack_larger/Red/small_ship_animation/3.png" id="14_dhexb"]
+[ext_resource type="Texture2D" uid="uid://dopw0in84yjdi" path="res://art/unused/Spaceship_art_pack_larger/Red/small_ship_animation/4.png" id="15_1acg7"]
+[ext_resource type="Texture2D" uid="uid://crk8lif67wg6x" path="res://art/unused/Spaceship_art_pack_larger/Red/small_ship_animation/5.png" id="16_5miwx"]
+[ext_resource type="Texture2D" uid="uid://dud3wggk4upit" path="res://art/unused/Spaceship_art_pack_larger/Red/Spacemines/1.png" id="17_wnrxb"]
+[ext_resource type="Texture2D" uid="uid://n2gsqihiicjd" path="res://art/unused/Spaceship_art_pack_larger/Red/Spacemines/2.png" id="18_uy220"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_c8gpu"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_xh3g7")
+"texture": ExtResource("4_tipsi")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_8dgvb")
+"texture": ExtResource("5_vbok0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_82xg5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_od3hm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_l8l5q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_72geh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_585au")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_38t22")
 }],
 "loop": true,
 "name": &"fly",
@@ -24,10 +52,19 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_6svmq")
+"texture": ExtResource("12_kj2ab")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_2psy6")
+"texture": ExtResource("13_0blv7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_dhexb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_1acg7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_5miwx")
 }],
 "loop": true,
 "name": &"swim",
@@ -35,10 +72,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_ithma")
+"texture": ExtResource("17_wnrxb")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_5qhx2")
+"texture": ExtResource("18_uy220")
 }],
 "loop": true,
 "name": &"walk",
@@ -54,10 +91,12 @@ collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_ayu0v")
 PowerUp = ExtResource("2_amixf")
+ExplosionScene = ExtResource("3_brgmy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-2.9375, -0.5)
-scale = Vector2(0.53125, 0.53125)
+position = Vector2(-1, 1)
+rotation = 1.5708
+scale = Vector2(0.153247, 0.153247)
 sprite_frames = SubResource("SpriteFrames_c8gpu")
 animation = &"walk"
 
