@@ -6,6 +6,7 @@ signal hit
 var screen_size
 var can_shoot = true 
 var shoot_cooldown = 0.25
+var triple_shot_active = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,10 +15,31 @@ func _ready():
 
 func shoot():
 	if visible and can_shoot:
-		var b = Bullet.instantiate()
-		owner.add_child(b)
-		b.transform = $Muzzle.global_transform
-		b.mob_hit.connect(owner._on_bullet_mob_hit)
+		if triple_shot_active:
+			# Create center bullet
+			var b1 = Bullet.instantiate()
+			owner.add_child(b1)
+			b1.transform = $Muzzle.global_transform
+			b1.mob_hit.connect(owner._on_bullet_mob_hit)
+			
+			# left
+			var b2 = Bullet.instantiate()
+			owner.add_child(b2)
+			b2.transform = $Muzzle.global_transform
+			b2.rotation += 0.2  # Angle
+			b2.mob_hit.connect(owner._on_bullet_mob_hit)
+			
+			# right
+			var b3 = Bullet.instantiate()
+			owner.add_child(b3)
+			b3.transform = $Muzzle.global_transform
+			b3.rotation -= 0.2
+			b3.mob_hit.connect(owner._on_bullet_mob_hit)
+		else:
+			var b = Bullet.instantiate()
+			owner.add_child(b)
+			b.transform = $Muzzle.global_transform
+			b.mob_hit.connect(owner._on_bullet_mob_hit)
 		
 		# Disable shooting and start cooldown
 		can_shoot = false

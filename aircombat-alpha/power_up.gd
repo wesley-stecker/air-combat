@@ -2,11 +2,20 @@ extends Area2D
 
 signal powerup_collected(type)
 
-var speed = 100
-var powerup_type = "double_fire_rate"
+var speed = 50
+var powerup_type = "default"
 var duration = 10.0
+var possible_types = ["double_fire_rate", "triple_shot"]
 
 func _ready():
+	# Random powerup
+	powerup_type = possible_types[randi() % possible_types.size()]
+	
+	# change color of the powerup
+	if powerup_type == "triple_shot":
+		
+		modulate = Color(1, 0.5, 1)  # Purple
+	
 	$DurationTimer.wait_time = duration
 
 func _physics_process(delta):

@@ -9,6 +9,7 @@ var base_max_speed = 200.0
 var max_speed_increase = 400.0
 var powerup_active = false
 var original_shoot_cooldown = 0.5
+var triple_shot_active = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -74,6 +75,8 @@ func _on_mob_timer_timeout() -> void:
 func _on_powerup_collected(type):
 	if type == "double_fire_rate":
 		activate_double_fire_rate()
+	elif type == "triple_shot":
+		activate_triple_shot()
 
 func activate_double_fire_rate():
 	
@@ -94,3 +97,19 @@ func activate_double_fire_rate():
 	if powerup_active:
 		$Player.shoot_cooldown = original_shoot_cooldown
 		powerup_active = false
+		
+func activate_triple_shot():
+	#State
+	triple_shot_active = true
+	
+	
+	$Player.triple_shot_active = true
+	
+	# duration
+	var timer = get_tree().create_timer(10.0)
+	await timer.timeout
+	
+	# Disable after its done
+	if triple_shot_active:
+		$Player.triple_shot_active = false
+		triple_shot_active = false
