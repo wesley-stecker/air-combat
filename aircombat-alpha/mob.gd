@@ -41,12 +41,12 @@ func _integrate_forces(state):
 func hit():
 	$CollisionShape2D.set_deferred("disabled", true)
 	
-	# Create explosion
-	var explosion = ExplosionScene.instantiate()
+	# explosion
+	var explosion = ExplosionScene.instantiate() 
 	explosion.position = position
 	get_parent().add_child(explosion)
 	
-	# Chance to spawn power-up
+	# Chance for power-up
 	if PowerUp and randf() < powerup_chance:
 		var powerup = PowerUp.instantiate()
 		powerup.position = position
