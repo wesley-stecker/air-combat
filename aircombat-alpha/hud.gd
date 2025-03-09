@@ -23,21 +23,20 @@ func update_score(score):
 func update_highscore(highscore):
 	$HighScoreLabel.text = str(highscore)
 
+#to update lives display
+func update_lives(lives):
+	$LivesLabel.text = "Lives: " + str(lives)
 
 func _ready() -> void:
-	pass
-
-
+	if has_node("LivesLabel"):
+		$LivesLabel.text = "Lives: 3"
 
 func _process(delta: float) -> void:
 	pass
 
-
 func _on_start_button_pressed() -> void:
 	$StartButton.hide()
 	start_game.emit()
-	
-
 
 func _on_message_timer_timeout() -> void:
 	$Message.hide()

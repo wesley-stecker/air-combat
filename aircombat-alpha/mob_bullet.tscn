@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cc11od3xrjn2g"]
+
+[ext_resource type="Script" path="res://mob_bullet.gd" id="1_p45hb"]
+[ext_resource type="Texture2D" uid="uid://cdt1tpk5iv4w4" path="res://art/unused/Spaceship_art_pack_larger/Red/bullet_red.png" id="2_ekdxk"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k6gvf"]
+radius = 8.0
+height = 24.0
+
+[node name="mob_bullet" type="Area2D"]
+script = ExtResource("1_p45hb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1.90735e-06, -1.90735e-06)
+scale = Vector2(0.679688, 0.679688)
+texture = ExtResource("2_ekdxk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("CapsuleShape2D_k6gvf")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, -12)

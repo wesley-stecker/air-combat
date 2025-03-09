@@ -1,6 +1,8 @@
 extends RigidBody2D
 @export var PowerUp : PackedScene
 @export var ExplosionScene : PackedScene
+@export var MobBullet : PackedScene
+
 const powerup_chance = .1
 var time_elapsed = 0
 var movement_type = 0 
@@ -8,16 +10,24 @@ var original_x = 0
 var amplitude = 100 
 var frequency = 2 
 var base_velocity = Vector2.ZERO
+var can_shoot = false
+var shoot_cooldown = 2.0 
+var shoot_timer = 0.0
 
 func _ready():
 	var mob_types = $AnimatedSprite2D.sprite_frames.get_animation_names()
-	$AnimatedSprite2D.play(mob_types[randi() % mob_types.size()])
+	var selected_animation = mob_types[randi() % mob_types.size()]
+	$AnimatedSprite2D.play(selected_animation)
+	
+	
+	can_shoot = (selected_animation == "swim")
+	
 	add_to_group("mob")
-	movement_type = randi() % 3  # Random number between 0 and 2
+	movement_type = randi() % 3 
 	original_x = position.x
 	amplitude = randf_range(50, 150)
 	frequency = randf_range(1, 3)
-	# Store the initial vertical velocity
+	
 	base_velocity = linear_velocity
 
 func _integrate_forces(state):
@@ -37,6 +47,21 @@ func _integrate_forces(state):
 				velocity.x = -amplitude * frequency
 	
 	state.linear_velocity = velocity
+	
+	
+	if can_shoot and MobBullet:
+		shoot_timer += state.step
+		if shoot_timer >= shoot_cooldown:
+			shoot()
+			shoot_timer = 0.0
+
+func shoot():
+	if MobBullet:
+		var bullet = MobBullet.instantiate()
+		bullet.position = position + Vector2(0, 30)  # Spawn in front of the mob
+		bullet.direction = Vector2.DOWN
+		bullet.speed = linear_velocity.length() * 1.8  # Slightly faster than the mob
+		get_parent().add_child(bullet)
 
 func hit():
 	$CollisionShape2D.set_deferred("disabled", true)

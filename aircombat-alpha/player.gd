@@ -7,11 +7,43 @@ var screen_size
 var can_shoot = true 
 var shoot_cooldown = 0.25
 var triple_shot_active = false
+var invulnerable = false  # Add invulnerability flag
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
 	hide()
+
+func start_invulnerability(duration):
+	invulnerable = true
+	print("Starting invulnerability for ", duration, " seconds")
+	
+	# We'll keep the collision shape enabled but use the invulnerable flag
+	# This way collisions are still detected but don't trigger the hit effect
+	
+	# Create a timer for blinking
+	var blink_timer = Timer.new()
+	blink_timer.wait_time = 0.1
+	blink_timer.autostart = true
+	blink_timer.one_shot = false
+	add_child(blink_timer)
+	
+	# Connect to timeout signal for blinking
+	blink_timer.timeout.connect(func():
+		modulate.a = 1.0 if modulate.a < 1.0 else 0.4
+	)
+	
+	# Wait for duration
+	await get_tree().create_timer(duration).timeout
+	
+	# Cleanup
+	blink_timer.stop()
+	blink_timer.queue_free()
+	
+	# End invulnerability
+	invulnerable = false
+	modulate.a = 1.0  # Ensure player is fully visible
+	print("Invulnerability ended")
 
 func shoot():
 	if visible and can_shoot:
@@ -77,19 +109,32 @@ func _process(delta):
 		elif velocity.y != 0:
 			$AnimatedSprite2D.animation = "up"
 
-
 func _on_body_entered(body):
-	if body.is_in_group("mob"):
+	print("Body entered: ", body.name, " - Invulnerable: ", invulnerable)
+	
+	# Only take damage if not invulnerable
+	if body.is_in_group("mob") and !invulnerable:
+		print("Player hit by mob")
 		# Create explosion
 		var explosion = ExplosionScene.instantiate()
 		explosion.position = position
 		get_parent().add_child(explosion)
 		
 		hide() 
-		hit.emit()
+		# Disable collision while hidden
 		$CollisionShape2D.set_deferred("disabled", true)
-	
+		hit.emit()
+		
 func start(pos):
+	print("Starting player at position ", pos)
 	position = pos
 	show()
-	$CollisionShape2D.disabled = false
+	
+	# Explicitly enable collision - make sure this is actually happening
+	$CollisionShape2D.set_deferred("disabled", false)
+	$CollisionShape2D.disabled = false  # Try both methods to make sure it takes effect
+	
+	print("Collision shape status: ", $CollisionShape2D.disabled)
+	
+	invulnerable = false  # Reset invulnerability state
+	modulate.a = 1.0  # Ensure fully visible

@@ -10,56 +10,62 @@ var max_speed_increase = 400.0
 var powerup_active = false
 var original_shoot_cooldown = 0.5
 var triple_shot_active = false
+var lives = 3 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
-
+	$Player.hit.connect(game_over)
+	print("Player hit signal connected")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if $ScoreTimer.is_stopped() == false:
 		game_time += delta
 
-
 func game_over():
-	$ScoreTimer.stop()
-	$MobTimer.stop()
-	$HUD.show_game_over()
+	lives -= 1
+	
+	if lives <= 0:
+		$ScoreTimer.stop()
+		$MobTimer.stop()
+		$HUD.show_game_over()
+	else:
+		
+		$Player.start($StartPosition.position)
+		$HUD.update_lives(lives)
+		$HUD.show_message("Lives: " + str(lives))
+		
+		$Player.start_invulnerability(2.0)
 
 func new_game():
 	score = 0
 	game_time = 0
+	lives = 3 
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$HUD.update_score(score)
+	$HUD.update_lives(lives) 
 	$HUD.show_message("Get Ready")
 
-func updatehighscorefunc (score):
+func updatehighscorefunc(score):
 	if score >= highscore:
 		highscore = score
 	$HUD.update_highscore(highscore)
-
-
 
 func _on_bullet_mob_hit():
 	score += 1
 	$HUD.update_score(score)
 	updatehighscorefunc(score)
 
-
-
 func _on_start_timer_timeout() -> void:
 	$MobTimer.start()
 	$ScoreTimer.start()
-
 
 func _on_mob_timer_timeout() -> void:
 	var mob = mob_scene.instantiate()
 	var screen_size = get_viewport().get_visible_rect().size
 	mob.position = Vector2(randf_range(0, screen_size.x), -50)
 	mob.rotation = PI/2
-	
 	
 	var speed_increase = min(game_time * 10, max_speed_increase)
 	var min_speed = base_min_speed + speed_increase
@@ -71,7 +77,6 @@ func _on_mob_timer_timeout() -> void:
 	mob.set_physics_process(true)
 	add_child(mob)
 
-
 func _on_powerup_collected(type):
 	if type == "double_fire_rate":
 		activate_double_fire_rate()
@@ -79,20 +84,14 @@ func _on_powerup_collected(type):
 		activate_triple_shot()
 
 func activate_double_fire_rate():
-	
 	if !powerup_active:
 		original_shoot_cooldown = $Player.shoot_cooldown
 	
-	
 	powerup_active = true
-	
-	
 	$Player.shoot_cooldown = original_shoot_cooldown / 2
-	
 	
 	var timer = get_tree().create_timer(10.0)
 	await timer.timeout
-	
 	
 	if powerup_active:
 		$Player.shoot_cooldown = original_shoot_cooldown
@@ -101,7 +100,6 @@ func activate_double_fire_rate():
 func activate_triple_shot():
 	#State
 	triple_shot_active = true
-	
 	
 	$Player.triple_shot_active = true
 	
