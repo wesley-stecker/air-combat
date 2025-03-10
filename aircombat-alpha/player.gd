@@ -7,7 +7,7 @@ var screen_size
 var can_shoot = true 
 var shoot_cooldown = 0.25
 var triple_shot_active = false
-var invulnerable = false  # Add invulnerability flag
+var invulnerable = false 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,31 +18,28 @@ func start_invulnerability(duration):
 	invulnerable = true
 	print("Starting invulnerability for ", duration, " seconds")
 	
-	# We'll keep the collision shape enabled but use the invulnerable flag
-	# This way collisions are still detected but don't trigger the hit effect
-	
-	# Create a timer for blinking
+	#this is the timer for the blinking
 	var blink_timer = Timer.new()
 	blink_timer.wait_time = 0.1
 	blink_timer.autostart = true
 	blink_timer.one_shot = false
 	add_child(blink_timer)
 	
-	# Connect to timeout signal for blinking
+	
 	blink_timer.timeout.connect(func():
 		modulate.a = 1.0 if modulate.a < 1.0 else 0.4
 	)
 	
-	# Wait for duration
+	
 	await get_tree().create_timer(duration).timeout
 	
-	# Cleanup
+	
 	blink_timer.stop()
 	blink_timer.queue_free()
 	
-	# End invulnerability
+	
 	invulnerable = false
-	modulate.a = 1.0  # Ensure player is fully visible
+	modulate.a = 1.0 
 	print("Invulnerability ended")
 
 func shoot():

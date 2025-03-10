@@ -23,13 +23,29 @@ func update_score(score):
 func update_highscore(highscore):
 	$HighScoreLabel.text = str(highscore)
 
-#to update lives display
+# Update lives display
 func update_lives(lives):
 	$LivesLabel.text = "Lives: " + str(lives)
+
+# New function to update level display
+func update_level(level):
+	$LevelLabel.text = "Level: " + str(level)
 
 func _ready() -> void:
 	if has_node("LivesLabel"):
 		$LivesLabel.text = "Lives: 3"
+	
+	# Make sure we have a level label
+	if has_node("LevelLabel"):
+		$LevelLabel.text = "Level: 1"
+	else:
+		# If there's no level label, create one
+		var level_label = Label.new()
+		level_label.name = "LevelLabel"
+		level_label.text = "Level: 1"
+		# Position it appropriately on your HUD
+		level_label.position = Vector2(10, 90)  # Adjust position as needed
+		add_child(level_label)
 
 func _process(delta: float) -> void:
 	pass

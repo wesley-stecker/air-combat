@@ -76,8 +76,8 @@ one_shot = true
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -64.0
-offset_right = -19.0
+offset_left = -72.0
+offset_right = -27.0
 offset_bottom = 78.0
 grow_horizontal = 0
 theme_override_fonts/font = ExtResource("1_t228d")
@@ -85,9 +85,9 @@ theme_override_font_sizes/font_size = 64
 text = "0"
 
 [node name="Label" type="Label" parent="."]
-offset_left = 560.0
+offset_left = 552.0
 offset_top = 64.0
-offset_right = 643.0
+offset_right = 635.0
 offset_bottom = 87.0
 text = "High Score"
 
@@ -98,6 +98,12 @@ offset_right = 96.0
 offset_bottom = 713.0
 theme_override_fonts/font = ExtResource("1_t228d")
 text = "Lives: 3"
+
+[node name="LevelLabel" type="Label" parent="."]
+offset_left = 8.0
+offset_top = 616.0
+offset_right = 80.0
+offset_bottom = 639.0
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
