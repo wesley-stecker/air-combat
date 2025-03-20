@@ -83,6 +83,9 @@ func level_up():
 	# Show level up message
 	$HUD.show_message("Level " + str(current_level) + "!")
 	
+	# Update level display - ADD THIS LINE
+	$HUD.update_level(current_level)
+	
 	# Update mob spawning rate
 	update_mob_timer()
 
@@ -113,6 +116,7 @@ func new_game():
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$HUD.update_score(score)
+	$HUD.update_level(current_level)
 	$HUD.update_lives(lives)
 	$HUD.show_message("Get Ready")
 

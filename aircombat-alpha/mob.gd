@@ -37,9 +37,12 @@ func _ready():
 	# If it's a swim type, set movement_type to 3, otherwise random between 0-2
 	if can_shoot:
 		movement_type = 3  # Special movement for swim mobs
-		# Randomize side movement direction
+	# Adjust times for swim phases
+		initial_descent_time = randf_range(0.8, 1.5)  # Random time for initial descent
+		side_to_side_time = randf_range(2.0, 4.0)     # Random time for side-to-side phase
+	# Randomize side movement direction
 		side_movement_direction = 1 if randf() > 0.5 else -1
-		# Initialize random side movement values
+	# Initialize random side movement values
 		randomize_side_movement()
 	else:
 		movement_type = randi() % 3
@@ -60,6 +63,10 @@ func _integrate_forces(state):
 	time_elapsed += state.step
 	var velocity = base_velocity
 	
+	# Get screen boundaries
+	var screen_size = get_viewport().get_visible_rect().size
+	var half_width = $CollisionShape2D.shape.radius  # Assuming circular collision shape
+	
 	match movement_type:
 		0:  # Straight line
 			pass
@@ -77,34 +84,53 @@ func _integrate_forces(state):
 			if swim_phase == 0:  # Initial descent
 				# Just move down
 				velocity.x = 0
+				velocity.y = base_velocity.y
 				if swim_phase_timer >= initial_descent_time:
 					swim_phase = 1
 					swim_phase_timer = 0.0
-					randomize_side_movement()  # Set initial random movement
+					randomize_side_movement()
 			elif swim_phase == 1:  # Side-to-side movement
-				# Update direction change timer
 				direction_change_timer += state.step
 				
-				# If it's time to change direction, do so and reset timer
 				if direction_change_timer >= side_movement_time:
 					direction_change_timer = 0
-					side_movement_direction *= -1  # Reverse direction
-					# Get new random values for next movement
+					side_movement_direction *= -1
 					side_movement_amplitude = randf_range(80, 200)
 					side_movement_time = randf_range(0.5, 1.2)
 				
-				# Apply horizontal movement with current amplitude
+				# Apply horizontal movement
 				velocity.x = side_movement_direction * side_movement_amplitude
 				
-				# Only slight downward movement during this phase
-				velocity.y = base_velocity.y * 0.3
+				# Check boundaries and reverse direction if needed
+				var next_x = position.x + velocity.x * state.step
+				if next_x < half_width or next_x > screen_size.x - half_width:
+					side_movement_direction *= -1  # Reverse direction
+					velocity.x = side_movement_direction * side_movement_amplitude
+				
+				# Stop vertical movement
+				velocity.y = 0
 				
 				if swim_phase_timer >= side_to_side_time:
 					swim_phase = 2
 					swim_phase_timer = 0.0
 			else:  # Final descent
-				# Continue downward with slight side movement
 				velocity.x = cos(time_elapsed * frequency) * amplitude * 0.5
+				
+				# Check boundaries for the side movement in final phase
+				var next_x = position.x + velocity.x * state.step
+				if next_x < half_width or next_x > screen_size.x - half_width:
+					velocity.x *= -1  # Reverse side movement
+				
+				velocity.y = base_velocity.y
+	
+	# Apply boundary checks to all movement types
+	var next_position = position + velocity * state.step
+	if next_position.x < half_width:
+		next_position.x = half_width
+		velocity.x = abs(velocity.x)  # Ensure moving right
+	elif next_position.x > screen_size.x - half_width:
+		next_position.x = screen_size.x - half_width
+		velocity.x = -abs(velocity.x)  # Ensure moving left
 	
 	state.linear_velocity = velocity
 	
@@ -142,5 +168,7 @@ func hit():
 	await get_tree().create_timer(0.2).timeout
 	queue_free()
 
-func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	queue_free()
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	# Only despawn if exiting bottom of screen
+	if position.y > get_viewport().get_visible_rect().size.y + 50:
+		queue_free()
