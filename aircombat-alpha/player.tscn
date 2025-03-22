@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://cphn35p0ep5rf"]
+[gd_scene load_steps=14 format=3 uid="uid://cphn35p0ep5rf"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_gldho"]
 [ext_resource type="PackedScene" uid="uid://dq6dchuqth0kr" path="res://bullet.tscn" id="2_f6rha"]
 [ext_resource type="PackedScene" uid="uid://kdn3ghqorna1" path="res://explosion.tscn" id="3_o0ya2"]
 [ext_resource type="Texture2D" uid="uid://3xbhwvdnetlf" path="res://art/unused/Spaceship_art_pack_larger/Blue/Animation/1.png" id="4_nmypf"]
+[ext_resource type="AudioStream" uid="uid://clo1jtjybn7dy" path="res://art/laser4.wav" id="4_tixmh"]
 [ext_resource type="Texture2D" uid="uid://bd264sx6lmoyh" path="res://art/unused/Spaceship_art_pack_larger/Blue/Animation/2.png" id="5_k8ep4"]
 [ext_resource type="Texture2D" uid="uid://c14y2qkes5a56" path="res://art/unused/Spaceship_art_pack_larger/Blue/Animation/3.png" id="6_x27da"]
 [ext_resource type="Texture2D" uid="uid://ehfodn0lygi6" path="res://art/unused/Spaceship_art_pack_larger/Blue/Animation/4.png" id="7_rvei3"]
@@ -78,6 +79,7 @@ position = Vector2(-7, 8)
 script = ExtResource("1_gldho")
 Bullet = ExtResource("2_f6rha")
 ExplosionScene = ExtResource("3_o0ya2")
+shoot_sound = ExtResource("4_tixmh")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
