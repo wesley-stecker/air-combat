@@ -1,15 +1,43 @@
-[gd_scene load_steps=6 format=3 uid="uid://cphn35p0ep5rf"]
+[gd_scene load_steps=13 format=3 uid="uid://cphn35p0ep5rf"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_gldho"]
 [ext_resource type="PackedScene" uid="uid://dq6dchuqth0kr" path="res://bullet.tscn" id="2_f6rha"]
-[ext_resource type="Texture2D" uid="uid://ux1v32jbstcv" path="res://art/Redplane4xt.png" id="3_gqxpi"]
 [ext_resource type="PackedScene" uid="uid://kdn3ghqorna1" path="res://explosion.tscn" id="3_o0ya2"]
+[ext_resource type="Texture2D" uid="uid://3xbhwvdnetlf" path="res://art/unused/Spaceship_art_pack_larger/Blue/Animation/1.png" id="4_nmypf"]
+[ext_resource type="Texture2D" uid="uid://bd264sx6lmoyh" path="res://art/unused/Spaceship_art_pack_larger/Blue/Animation/2.png" id="5_k8ep4"]
+[ext_resource type="Texture2D" uid="uid://c14y2qkes5a56" path="res://art/unused/Spaceship_art_pack_larger/Blue/Animation/3.png" id="6_x27da"]
+[ext_resource type="Texture2D" uid="uid://ehfodn0lygi6" path="res://art/unused/Spaceship_art_pack_larger/Blue/Animation/4.png" id="7_rvei3"]
+[ext_resource type="Texture2D" uid="uid://c7wd3y0hp7tnw" path="res://art/unused/Spaceship_art_pack_larger/Blue/Animation/5.png" id="8_fbwm7"]
+[ext_resource type="Texture2D" uid="uid://dq5lbdvpg68a1" path="res://art/unused/Spaceship_art_pack_larger/Blue/Animation/6.png" id="9_qokei"]
+[ext_resource type="Texture2D" uid="uid://jrr3owcrbi3h" path="res://art/unused/Spaceship_art_pack_larger/Blue/Animation/7.png" id="10_0nyy0"]
+[ext_resource type="Texture2D" uid="uid://0i6y4hdxcmud" path="res://art/unused/Spaceship_art_pack_larger/Blue/Animation/8.png" id="11_mcm6o"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_65jvv"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_gqxpi")
+"texture": ExtResource("4_nmypf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_k8ep4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_x27da")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_rvei3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_fbwm7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_qokei")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_0nyy0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_mcm6o")
 }],
 "loop": true,
 "name": &"up",
@@ -17,7 +45,28 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_gqxpi")
+"texture": ExtResource("4_nmypf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_k8ep4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_x27da")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_rvei3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_fbwm7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_qokei")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_0nyy0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_mcm6o")
 }],
 "loop": true,
 "name": &"walk",
@@ -25,21 +74,22 @@ animations = [{
 }]
 
 [node name="Player" type="Area2D"]
-position = Vector2(10, 4)
+position = Vector2(-7, 8)
 script = ExtResource("1_gldho")
 Bullet = ExtResource("2_f6rha")
 ExplosionScene = ExtResource("3_o0ya2")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
+position = Vector2(10, -10)
+scale = Vector2(0.210938, 0.210938)
 sprite_frames = SubResource("SpriteFrames_65jvv")
-animation = &"up"
+animation = &"walk"
 
 [node name="Muzzle" type="Marker2D" parent="."]
-position = Vector2(0, -35)
+position = Vector2(7.135, -57)
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(8, 5, 27, 13, 49, 31, 49, 33, 12, 35, -12, 35, -49, 33, -49, 31, -27, 13, -8, 5, -8, -13, -17, -14, -17, -17, -2, -32, 2, -32, 17, -17, 17, -14, 8, -13)
+polygon = PackedVector2Array(-8, 5, -38, 7, -35, -12, 3, -25, 2, -34, 0, -44, 7, -57, 8, -57, 16, -44, 14, -34, 13, -26, 23, -21, 52, -12, 56, 7, 21, 5, 19, 12, -2, 12, -5, 5)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
