@@ -1,10 +1,11 @@
-[gd_scene load_steps=22 format=3 uid="uid://8nyn2h4kr1as"]
+[gd_scene load_steps=23 format=3 uid="uid://8nyn2h4kr1as"]
 
 [ext_resource type="Script" path="res://mob.gd" id="1_ayu0v"]
 [ext_resource type="PackedScene" uid="uid://ble2cyb0txfuj" path="res://PowerUp.tscn" id="2_amixf"]
 [ext_resource type="PackedScene" uid="uid://kdn3ghqorna1" path="res://explosion.tscn" id="3_brgmy"]
 [ext_resource type="PackedScene" uid="uid://cc11od3xrjn2g" path="res://mob_bullet.tscn" id="4_ouvd1"]
 [ext_resource type="Texture2D" uid="uid://c8tdyo5v0kc7l" path="res://art/unused/Spaceship_art_pack_larger/Red/Enemy_animation/1.png" id="4_tipsi"]
+[ext_resource type="AudioStream" uid="uid://brq1215ps64tg" path="res://art/laser3.wav" id="5_qy0nr"]
 [ext_resource type="Texture2D" uid="uid://u1m8dph67l6l" path="res://art/unused/Spaceship_art_pack_larger/Red/Enemy_animation/2.png" id="5_vbok0"]
 [ext_resource type="Texture2D" uid="uid://o2l2lu6jpnql" path="res://art/unused/Spaceship_art_pack_larger/Red/Enemy_animation/3.png" id="6_82xg5"]
 [ext_resource type="Texture2D" uid="uid://cv1joda8n8ato" path="res://art/unused/Spaceship_art_pack_larger/Red/Enemy_animation/4.png" id="7_od3hm"]
@@ -94,6 +95,7 @@ script = ExtResource("1_ayu0v")
 PowerUp = ExtResource("2_amixf")
 ExplosionScene = ExtResource("3_brgmy")
 MobBullet = ExtResource("4_ouvd1")
+shoot_sound = ExtResource("5_qy0nr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1.43051e-06, 4.76837e-07)

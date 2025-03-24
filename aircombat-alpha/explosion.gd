@@ -1,4 +1,5 @@
 extends Node2D
+@export var explosion_sound : AudioStream
 
 func _ready():
 	# Get all available explosion animations
@@ -12,6 +13,17 @@ func _ready():
 	
 	# Connect to the animation_finished signal
 	$AnimatedSprite2D.animation_finished.connect(_on_animation_finished)
+	
+	 # Create audio player for explosion if not already in scene
+	if !has_node("ExplosionSound"):
+		var audio = AudioStreamPlayer.new()
+		audio.name = "ExplosionSound"
+		add_child(audio)
+	
+	# Play explosion sound
+	if has_node("ExplosionSound") and explosion_sound:
+		$ExplosionSound.stream = explosion_sound
+		$ExplosionSound.play()
 
 func _on_animation_finished():
 	queue_free()

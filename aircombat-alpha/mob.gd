@@ -2,6 +2,7 @@ extends RigidBody2D
 @export var PowerUp : PackedScene
 @export var ExplosionScene : PackedScene
 @export var MobBullet : PackedScene
+@export var shoot_sound : AudioStream
 
 const powerup_chance = .1
 var time_elapsed = 0
@@ -148,6 +149,20 @@ func shoot():
 		bullet.direction = Vector2.DOWN
 		bullet.speed = linear_velocity.length() * 1.8  # Slightly faster than the mob
 		get_parent().add_child(bullet)
+		
+		# Play shooting sound
+		if shoot_sound:
+			# Create a temporary audio player if needed
+			if !has_node("ShootSound"):
+				var audio = AudioStreamPlayer.new()
+				audio.name = "ShootSound"
+				audio.volume_db = -5.0  # Slightly quieter than player shot
+				add_child(audio)
+			
+			# Play the sound
+			if has_node("ShootSound"):
+				$ShootSound.stream = shoot_sound
+				$ShootSound.play()
 
 func hit():
 	$CollisionShape2D.set_deferred("disabled", true)

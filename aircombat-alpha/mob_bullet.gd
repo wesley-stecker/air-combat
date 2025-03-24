@@ -9,6 +9,7 @@ func _physics_process(delta):
 func _ready():
 	
 	rotation = direction.angle() + PI/2
+	area_entered.connect(_on_area_entered)
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()

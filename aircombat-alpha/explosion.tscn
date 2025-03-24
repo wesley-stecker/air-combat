@@ -1,7 +1,8 @@
-[gd_scene load_steps=198 format=3 uid="uid://kdn3ghqorna1"]
+[gd_scene load_steps=199 format=3 uid="uid://kdn3ghqorna1"]
 
 [ext_resource type="Script" path="res://explosion.gd" id="1_f4qi8"]
 [ext_resource type="Texture2D" uid="uid://c8q6s1s07gqjk" path="res://art/unused/Free - 2D Explosion Animations/explosion 1.png" id="1_ouhkq"]
+[ext_resource type="AudioStream" uid="uid://b2hnloq8sds0v" path="res://art/explosion.ogg" id="2_c4ifa"]
 [ext_resource type="Texture2D" uid="uid://dd2brgyh8l7py" path="res://art/unused/Free - 2D Explosion Animations/explosion 4.png" id="3_offe3"]
 [ext_resource type="Texture2D" uid="uid://b8rfmr7mthgo" path="res://art/unused/Free - 2D Explosion Animations/explosion 3.png" id="4_3j32w"]
 
@@ -1369,6 +1370,7 @@ animations = [{
 
 [node name="Explosion" type="Node2D"]
 script = ExtResource("1_f4qi8")
+explosion_sound = ExtResource("2_c4ifa")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1.00001, 1.00001)

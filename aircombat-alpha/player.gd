@@ -3,6 +3,7 @@ signal hit
 @export var Bullet : PackedScene
 @export var ExplosionScene : PackedScene
 @export var speed = 400 
+@export var shoot_sound : AudioStream
 var screen_size
 var can_shoot = true 
 var shoot_cooldown = 0.25
@@ -13,6 +14,10 @@ var invulnerable = false
 func _ready():
 	screen_size = get_viewport_rect().size
 	hide()
+	if !has_node("ShootSound"):
+		var audio = AudioStreamPlayer.new()
+		audio.name = "ShootSound"
+		add_child(audio)
 
 func start_invulnerability(duration):
 	invulnerable = true
@@ -64,12 +69,17 @@ func shoot():
 			b3.transform = $Muzzle.global_transform
 			b3.rotation -= 0.2
 			b3.mob_hit.connect(owner._on_bullet_mob_hit)
+			
+			
 		else:
 			var b = Bullet.instantiate()
 			owner.add_child(b)
 			b.transform = $Muzzle.global_transform
 			b.mob_hit.connect(owner._on_bullet_mob_hit)
 		
+		if has_node("ShootSound") and shoot_sound:
+				$ShootSound.stream = shoot_sound
+				$ShootSound.play()
 		# Disable shooting and start cooldown
 		can_shoot = false
 		await get_tree().create_timer(shoot_cooldown).timeout
