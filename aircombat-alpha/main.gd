@@ -16,10 +16,10 @@ var lives = 3
 # Level system variables
 var current_level = 1
 var max_level = 5
-var level_score_thresholds = [10, 20, 30, 40, 50]  # Score needed to reach each level
+var level_score_thresholds = [10, 20, 35, 50, 65]  # Score needed to reach each level
 var level_speed_multipliers = [1.0, 1.3, 1.7, 2.2, 3.0]  # Speed multiplier for each level
-var level_spawn_time_multipliers = [1.0, 0.9, 0.8, 0.7, 0.6]  # Lower = faster spawning
-var mob_shoot_cooldown_multipliers = [1.0, 0.9, 0.8, 0.7, 0.6]  # Lower = more shooting
+var level_spawn_time_multipliers = [1.0, 0.9, 0.8, 0.65, 0.5]  # Lower = faster spawning
+var mob_shoot_cooldown_multipliers = [1.0, 0.9, 0.8, 0.65, 0.5]  # Lower = more shooting
 
 # Level-specific mob attributes
 var level_mob_attributes = {

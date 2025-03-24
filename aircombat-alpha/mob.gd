@@ -152,17 +152,17 @@ func shoot():
 		
 		# Play shooting sound
 		if shoot_sound:
-			# Create a temporary audio player if needed
-			if !has_node("ShootSound"):
-				var audio = AudioStreamPlayer.new()
-				audio.name = "ShootSound"
-				audio.volume_db = -5.0  # Slightly quieter than player shot
-				add_child(audio)
+			# Unique approach to play sound once
+			var temp_player = AudioStreamPlayer.new()
+			temp_player.stream = shoot_sound
+			temp_player.volume_db = -5.0  # Slightly quieter than player shot
+			get_parent().add_child(temp_player)
+			temp_player.play()
 			
-			# Play the sound
-			if has_node("ShootSound"):
-				$ShootSound.stream = shoot_sound
-				$ShootSound.play()
+			# Automatically remove the player after it finishes
+			temp_player.connect("finished", func():
+				temp_player.queue_free()
+			)
 
 func hit():
 	$CollisionShape2D.set_deferred("disabled", true)
@@ -185,5 +185,5 @@ func hit():
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	# Only despawn if exiting bottom of screen
-	if position.y > get_viewport().get_visible_rect().size.y + 50:
+	if position.y > get_viewport().get_visible_rect().size.y + 10:
 		queue_free()
